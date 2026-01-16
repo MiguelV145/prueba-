@@ -8,14 +8,14 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: none
-      show-sql: true
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
   sql:
       init:
         mode: always
-        schema-locations: classpath:shema.aql
+        schema-locations: classpath:schema.sql
         data-locations: classpath:data.sql
 
 server:

@@ -25,19 +25,19 @@ public class VehiclesController {
 
     @GetMapping("")
     public ResponseEntity<List<VehicleResponseDto>> getActiveVehicles() {
-        List<VehicleResponseDto> vehicles = vehicleService.getActiveVehicles();
+        List<VehicleResponseDto> vehicles = vehicleService.getAllActiveVehicles();
         return new ResponseEntity<>(vehicles, HttpStatus.OK);
     }
 
     @GetMapping("/low-stock-expensive")
     public ResponseEntity<List<VehicleResponseDto>> getLowStockExpensive() {
-        List<VehicleResponseDto> vehicles = vehicleService.getLowStockExpensive();
+        List<VehicleResponseDto> vehicles = vehicleService.getLowStockExpensiveVehicles();
         return new ResponseEntity<>(vehicles, HttpStatus.OK);
     }
 
     @PatchMapping("/delete/{model}")
     public ResponseEntity<String> logicalDelete(@PathVariable String model) {
-        vehicleService.logicalDeleteByModel(model);
+        vehicleService.deleteByModel(model);
         return new ResponseEntity<>("Vehicle deleted successfully", HttpStatus.OK);
     }
 

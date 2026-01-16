@@ -51,4 +51,7 @@ public class VehicleEntity extends BaseModel {
     public void setStock(Integer stock) {
         this.stock = stock;
     }
+
+
+    
 }
