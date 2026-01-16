@@ -5,14 +5,12 @@ import com.company.vehicles.vehiculo.repositories.VehicleRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.company.vehicles.models.Vehicle;
 import com.company.vehicles.vehiculo.dto.OperationRensposeDto;
 import com.company.vehicles.vehiculo.dto.VehicleResponseDto;
 import com.company.vehicles.vehiculo.dto.VehicleStockRequestDto;

@@ -15,7 +15,6 @@ public class Vehiclee {
         this.model = model;
         this.price = price;
         this.stock = stock;
-        if (this.deletd == "N" ||this.deletd == "Y" )
         this.deletd = deletd;
     }
 
