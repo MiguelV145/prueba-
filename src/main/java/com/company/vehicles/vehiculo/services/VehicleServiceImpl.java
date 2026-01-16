@@ -33,10 +33,15 @@ public class VehicleServiceImpl implements VehicleService{
         List<VehicleEntity> todo = vehicleRepository.findByDeleted("N");
         List<VehicleResponseDto> respuesta = new ArrayList<>();
         for (VehicleEntity vehicle : todo) {
-            if(vehicle.getPrice()> 200000 && vehicle.getStock()>10){
-                respuesta.add(VehicleMapper.toResponse(vehicle));
-            }
+        Double price = vehicle.getPrice();
+        Integer stock = vehicle.getStock();
+
+        // Si tu intención es "activos", normalmente NO deberías filtrar por price/stock aquí.
+        // Pero si vas a filtrar, hazlo null-safe:
+        if (price != null && stock != null && price > 200000 && stock > 10) {
+            respuesta.add(VehicleMapper.toResponse(vehicle));
         }
+    }
         return respuesta;
     
     }

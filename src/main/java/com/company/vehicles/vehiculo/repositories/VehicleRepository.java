@@ -12,8 +12,5 @@ import com.company.vehicles.vehiculo.entities.VehicleEntity;
 public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
 
     List<VehicleEntity> findByDeleted(String deleted);
-
-    List<VehicleEntity> findByDeletedAndPriceGreaterThanAndStockLessThan(String deleted, Double price, Integer stock);
-
     Optional<VehicleEntity> findByModel(String model);
 }

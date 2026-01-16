@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.company.vehicles.vehiculo.dto.OperationRensposeDto;
 import com.company.vehicles.vehiculo.dto.VehicleResponseDto;
 import com.company.vehicles.vehiculo.dto.VehicleStockRequestDto;
 import com.company.vehicles.vehiculo.services.VehicleService;
@@ -23,27 +24,33 @@ public class VehiclesController {
     @Autowired
     private VehicleService vehicleService;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<List<VehicleResponseDto>> getActiveVehicles() {
         List<VehicleResponseDto> vehicles = vehicleService.getAllActiveVehicles();
-        return new ResponseEntity<>(vehicles, HttpStatus.OK);
+        return ResponseEntity.ok(vehicles);
     }
 
     @GetMapping("/low-stock-expensive")
     public ResponseEntity<List<VehicleResponseDto>> getLowStockExpensive() {
         List<VehicleResponseDto> vehicles = vehicleService.getLowStockExpensiveVehicles();
-        return new ResponseEntity<>(vehicles, HttpStatus.OK);
+        return ResponseEntity.ok(vehicles);
     }
 
-    @PatchMapping("/delete/{model}")
-    public ResponseEntity<String> logicalDelete(@PathVariable String model) {
-        vehicleService.deleteByModel(model);
-        return new ResponseEntity<>("Vehicle deleted successfully", HttpStatus.OK);
+@PatchMapping("/delete/{model}")
+    public ResponseEntity<OperationRensposeDto> deleteByModel(@PathVariable String model) {
+        OperationRensposeDto response = vehicleService.deleteByModel(model);
+        if (response.isSuccess()) {
+            return ResponseEntity.ok(response);
+        }
+        if (response.isConflict()) {    
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
     @PatchMapping("/stock")
     public ResponseEntity<VehicleResponseDto> updateStock(@RequestBody VehicleStockRequestDto request) {
         VehicleResponseDto updated = vehicleService.updateStock(request);
-        return new ResponseEntity<>(updated, HttpStatus.OK);
+        return  ResponseEntity.ok(updated);
     }
 }
